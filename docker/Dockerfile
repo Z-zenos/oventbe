@@ -47,7 +47,7 @@ RUN apt-get update && \
 # Copy project requirement files here to ensure they will be cached.
 # We will cache our requirements and only reinstall them when pyproject.toml or poetry.lock files change. Otherwise builds will be slow.
 WORKDIR $PYSETUP_PATH
-COPY poetry.lock pyproject.toml README.md ./
+COPY poetry.lock pyproject.toml ./
 COPY ./app /workspace/app/
 
 # install runtime deps - uses $POETRY_VIRTUALENVS_IN_PROJECT internally
