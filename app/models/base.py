@@ -1,11 +1,10 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel
 from sqlmodel import Column, DateTime, Field, Integer, func
 
 
-class BaseCreateUpdateModel(BaseModel):
+class BaseCreateUpdateModel:
     created_at: Optional[datetime] = Field(
         sa_column=Column(DateTime(timezone=True), server_default=func.now())
     )

@@ -2,34 +2,26 @@ from datetime import datetime
 from typing import Optional
 
 from geoalchemy2 import Geometry
-from sqlmodel import Column, DateTime, Enum, Field, String, Text
+from sqlmodel import Column, DateTime, Enum, Field, SQLModel, String, Text
 
 from app.core.code import RoleCode
 from app.models.base import BaseCreateUpdateModel
 
 
-class User(BaseCreateUpdateModel, table=True):
+class User(SQLModel, BaseCreateUpdateModel, table=True):
     __tablename__: str = "users"
 
     id: Optional[int] = Field(default=None, primary_key=True)
     role_code: Optional[RoleCode] = Field(sa_column=Column(Enum(RoleCode)))
-    organization_id: Optional[int] = Field(
-        default=None, foreign_key="organizations.id"
-    )
+    organization_id: Optional[int] = Field(default=None, foreign_key="organizations.id")
     email: Optional[str] = Field(sa_column=Column(String(255)), default=None)
 
     password: Optional[str] = Field(
         sa_column=Column(String(2048), nullable=True), default=None
     )
-    first_name: Optional[str] = Field(
-        sa_column=Column(String(255)), default=None
-    )
-    last_name: Optional[str] = Field(
-        sa_column=Column(String(255)), default=None
-    )
-    company_name: Optional[str] = Field(
-        sa_column=Column(String(255)), default=None
-    )
+    first_name: Optional[str] = Field(sa_column=Column(String(255)), default=None)
+    last_name: Optional[str] = Field(sa_column=Column(String(255)), default=None)
+    company_name: Optional[str] = Field(sa_column=Column(String(255)), default=None)
 
     phone: Optional[str] = Field(sa_column=Column(String(20)), default=None)
 
@@ -78,9 +70,7 @@ class User(BaseCreateUpdateModel, table=True):
         sa_column=Column(DateTime(timezone=True), nullable=True), default=None
     )
 
-    new_email: Optional[str] = Field(
-        sa_column=Column(String(255)), default=None
-    )
+    new_email: Optional[str] = Field(sa_column=Column(String(255)), default=None)
     new_email_verify_token: Optional[str] = Field(
         sa_column=Column(String(2048), nullable=True), default=None
     )
