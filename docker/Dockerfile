@@ -56,12 +56,13 @@ RUN poetry install --only main
 # `development` image is used during development / testing
 FROM python-base as development
 
+RUN useradd -m -d /home/app -s /bin/bash app
+
 # copy in our built poetry + venv
 COPY --from=poetry-base $POETRY_HOME $POETRY_HOME
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
     libpq-dev build-essential git bash curl tar sudo default-jre && \
-    useradd -m -d /home/app -s /bin/bash app && \
     echo '%app ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers && \
     curl -sS https://starship.rs/install.sh | sh -s -- --yes && \
     echo 'eval "$(starship init bash)"' >>/home/app/.bashrc && \
