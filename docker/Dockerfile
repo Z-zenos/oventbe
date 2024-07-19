@@ -56,7 +56,7 @@ RUN poetry install --only main
 # `development` image is used during development / testing
 FROM python-base as development
 
-RUN useradd --create-home --shell /bin/bash app
+RUN useradd --create-home -d /home/app --shell /bin/bash app
 
 # copy in our built poetry + venv
 COPY --from=poetry-base $POETRY_HOME $POETRY_HOME
@@ -68,12 +68,13 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     echo 'eval "$(starship init bash)"' >>/home/app/.bashrc && \
     rm -rf /var/lib/apt/lists/*
 
+COPY . .
+
 USER app
 
 # will become mountpoint of our code
 WORKDIR /workspace
 
-COPY . .
 
 EXPOSE 8000
 CMD ["poetry", "run", "uvicorn", "--reload", "app.main:app"]
