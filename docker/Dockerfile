@@ -56,7 +56,7 @@ RUN poetry install --only main
 # `development` image is used during development / testing
 FROM python-base as development
 
-RUN useradd -m -d /home/app -s /bin/bash app
+RUN useradd --create-home --shell /bin/bash app
 
 # copy in our built poetry + venv
 COPY --from=poetry-base $POETRY_HOME $POETRY_HOME
@@ -80,9 +80,9 @@ CMD ["poetry", "run", "uvicorn", "--reload", "app.main:app"]
 
 
 # `production` image used for runtime
-FROM python-base as production
-ENV FASTAPI_ENV=production
-COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
-COPY ./app /app/
-WORKDIR /app
-CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "main:app"]
+# FROM python-base as production
+# ENV FASTAPI_ENV=production
+# COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
+# COPY ./app /app/
+# WORKDIR /app
+# CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "main:app"]

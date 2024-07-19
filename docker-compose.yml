@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
+      target: development
 
     volumes:
       - .:/workspaces:cached
@@ -48,6 +49,7 @@ services:
 
 volumes:
   postgres-data:
+
 networks:
   default:
     name: roominar-network
