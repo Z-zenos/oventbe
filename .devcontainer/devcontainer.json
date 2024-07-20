@@ -5,7 +5,7 @@
     "name": "Roominar",
     "dockerComposeFile": "../docker-compose.yml",
     "service": "app",
-    "workspaceFolder": "/workspace",
+    "workspaceFolder": "/roominar",
     "overrideCommand": false,
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // This can be used to network with other containers or the host.
@@ -39,7 +39,7 @@
     // Use 'postCreateCommand' to run commands after the container is created.
     // "postCreateCommand": "pip install --user -r requirements.txt",
     // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-    "remoteUser": "app",
+    "remoteUser": "roominar",
     "postCreateCommand": "poetry install && pre-commit install",
     "features": {
         "git": "os-provided",
