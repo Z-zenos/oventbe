@@ -65,9 +65,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     rm -rf /var/lib/apt/lists/*
 
 USER roominar
-WORKDIR $PYSETUP_PATH
-
-RUN poetry install
 
 WORKDIR /roominar
 
