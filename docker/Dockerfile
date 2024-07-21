@@ -56,7 +56,7 @@ COPY --from=builder-base $POETRY_HOME $POETRY_HOME
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
-    libpq-dev build-essential git bash curl tar sudo default-jre && \
+    procps libpq-dev build-essential git bash curl tar sudo default-jre && \
     useradd -m -d /home/roominar -s /bin/bash roominar && \
     chown roominar /home/roominar && \
     echo 'roominar ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers && \
@@ -69,4 +69,4 @@ USER roominar
 WORKDIR /roominar
 
 EXPOSE 8000
-CMD ["uvicorn", "--reload", "app.main:app"]
+CMD ["uvicorn", "app.main:app","--host", "0.0.0.0"]
